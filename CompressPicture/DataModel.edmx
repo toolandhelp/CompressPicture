@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Data_TempCopy">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="OperateKey" Type="varchar" MaxLength="50" />
+          <Property Name="Operate" Type="int" />
+          <Property Name="ItemId" Type="varchar" MaxLength="50" />
+          <Property Name="OldPath" Type="varchar" MaxLength="500" />
+          <Property Name="NewPath" Type="varchar" MaxLength="500" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Summary" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Web_ItemLibrary">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Price" Type="money" />
+          <Property Name="Views" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="DownloadsNumber" Type="int" />
+          <Property Name="ItemLevel" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateUserId" Type="varchar" MaxLength="50" />
+          <Property Name="CreateUserName" Type="varchar" MaxLength="50" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="ModifyUserId" Type="varchar" MaxLength="50" />
+          <Property Name="ModifyUserName" Type="varchar" MaxLength="50" />
+          <Property Name="IsDelete" Type="int" Nullable="false" />
+          <Property Name="Remarks" Type="varchar(max)" />
+          <Property Name="ItemContent" Type="varchar(max)" />
+          <Property Name="ItemTitleImg" Type="nvarchar" MaxLength="300" />
+          <Property Name="ItemFilePath" Type="nvarchar" MaxLength="1020" />
+          <Property Name="ItemFileName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ItemContentBefore" Type="varchar(max)" />
+          <Property Name="IsAdmin" Type="int" Nullable="false" />
+          <Property Name="WebUserItemIsOk" Type="int" Nullable="false" />
+          <Property Name="ItemAnotherName" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsOriginal" Type="int" />
+        </EntityType>
+        <EntityContainer Name="DataModelStoreContainer">
+          <EntitySet Name="Data_TempCopy" EntityType="Self.Data_TempCopy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Web_ItemLibrary" EntityType="Self.Web_ItemLibrary" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DataModelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Data_TempCopy" EntityType="DataModel.Data_TempCopy" />
+          <EntitySet Name="Web_ItemLibrary" EntityType="DataModel.Web_ItemLibrary" />
+        </EntityContainer>
+        <EntityType Name="Data_TempCopy">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperateKey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Operate" Type="Int32" />
+          <Property Name="ItemId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OldPath" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="NewPath" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Summary" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Web_ItemLibrary">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ItemCode" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Views" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DownloadsNumber" Type="Int32" />
+          <Property Name="ItemLevel" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsDelete" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ItemContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ItemTitleImg" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ItemFilePath" Type="String" MaxLength="1020" FixedLength="false" Unicode="true" />
+          <Property Name="ItemFileName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ItemContentBefore" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsAdmin" Type="Int32" Nullable="false" />
+          <Property Name="WebUserItemIsOk" Type="Int32" Nullable="false" />
+          <Property Name="ItemAnotherName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsOriginal" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="DataModelEntities">
+          <EntitySetMapping Name="Data_TempCopy">
+            <EntityTypeMapping TypeName="DataModel.Data_TempCopy">
+              <MappingFragment StoreEntitySet="Data_TempCopy">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="NewPath" ColumnName="NewPath" />
+                <ScalarProperty Name="OldPath" ColumnName="OldPath" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="Operate" ColumnName="Operate" />
+                <ScalarProperty Name="OperateKey" ColumnName="OperateKey" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Web_ItemLibrary">
+            <EntityTypeMapping TypeName="DataModel.Web_ItemLibrary">
+              <MappingFragment StoreEntitySet="Web_ItemLibrary">
+                <ScalarProperty Name="IsOriginal" ColumnName="IsOriginal" />
+                <ScalarProperty Name="ItemAnotherName" ColumnName="ItemAnotherName" />
+                <ScalarProperty Name="WebUserItemIsOk" ColumnName="WebUserItemIsOk" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="ItemContentBefore" ColumnName="ItemContentBefore" />
+                <ScalarProperty Name="ItemFileName" ColumnName="ItemFileName" />
+                <ScalarProperty Name="ItemFilePath" ColumnName="ItemFilePath" />
+                <ScalarProperty Name="ItemTitleImg" ColumnName="ItemTitleImg" />
+                <ScalarProperty Name="ItemContent" ColumnName="ItemContent" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="ModifyUserName" ColumnName="ModifyUserName" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="CreateUserName" ColumnName="CreateUserName" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ItemLevel" ColumnName="ItemLevel" />
+                <ScalarProperty Name="DownloadsNumber" ColumnName="DownloadsNumber" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

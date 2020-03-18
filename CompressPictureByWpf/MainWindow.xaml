@@ -1,0 +1,38 @@
+﻿<Window x:Class="CompressPictureByWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CompressPictureByWpf"
+        mc:Ignorable="d"
+        Title="批量处理图片" Height="474" Width="800" Background="White">
+
+    <TextBox BorderBrush="Transparent" 
+                                         Text="{Binding Path=DataContent,Mode=OneWay,UpdateSourceTrigger=LostFocus}"                                     Name="txtInfos"     
+                                         HorizontalContentAlignment="Left"
+                                         Padding="5,0,0,0"
+                                         VerticalContentAlignment="Center"
+                                         VerticalAlignment="Stretch"                                         
+                                         IsReadOnly="True" Margin="0,0,0,50">
+
+        <TextBox.Style>
+            <Style TargetType="{x:Type TextBox}">
+                <Style.Triggers>
+
+                    <DataTrigger Binding="{Binding FrameColor}" Value="True">
+                        <Setter Property="Foreground" Value="Red"></Setter>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding FrameColor}" Value="False">
+                        <Setter Property="Foreground" Value="Green"></Setter>
+                    </DataTrigger>
+
+                </Style.Triggers>
+            </Style>
+
+        </TextBox.Style>
+        
+    </TextBox>
+
+
+</Window>
