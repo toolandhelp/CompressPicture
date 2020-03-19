@@ -39,5 +39,8 @@ namespace CompressPicture
         public int WebUserItemIsOk { get; set; }
         public string ItemAnotherName { get; set; }
         public Nullable<int> IsOriginal { get; set; }
+        public Nullable<int> IsAllowIntegral { get; set; }
+        public Nullable<int> IsAllowTribalCoins { get; set; }
+        public string ResourceObj { get; set; }
     }
 }

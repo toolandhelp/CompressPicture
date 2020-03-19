@@ -48,6 +48,9 @@
           <Property Name="WebUserItemIsOk" Type="int" Nullable="false" />
           <Property Name="ItemAnotherName" Type="nvarchar" MaxLength="100" />
           <Property Name="IsOriginal" Type="int" />
+          <Property Name="IsAllowIntegral" Type="int" />
+          <Property Name="IsAllowTribalCoins" Type="int" />
+          <Property Name="ResourceObj" Type="nvarchar(max)" />
         </EntityType>
         <EntityContainer Name="DataModelStoreContainer">
           <EntitySet Name="Data_TempCopy" EntityType="Self.Data_TempCopy" Schema="dbo" store:Type="Tables" />
@@ -104,6 +107,9 @@
           <Property Name="WebUserItemIsOk" Type="Int32" Nullable="false" />
           <Property Name="ItemAnotherName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="IsOriginal" Type="Int32" />
+          <Property Name="IsAllowIntegral" Type="Int32" />
+          <Property Name="IsAllowTribalCoins" Type="Int32" />
+          <Property Name="ResourceObj" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -129,6 +135,9 @@
           <EntitySetMapping Name="Web_ItemLibrary">
             <EntityTypeMapping TypeName="DataModel.Web_ItemLibrary">
               <MappingFragment StoreEntitySet="Web_ItemLibrary">
+                <ScalarProperty Name="ResourceObj" ColumnName="ResourceObj" />
+                <ScalarProperty Name="IsAllowTribalCoins" ColumnName="IsAllowTribalCoins" />
+                <ScalarProperty Name="IsAllowIntegral" ColumnName="IsAllowIntegral" />
                 <ScalarProperty Name="IsOriginal" ColumnName="IsOriginal" />
                 <ScalarProperty Name="ItemAnotherName" ColumnName="ItemAnotherName" />
                 <ScalarProperty Name="WebUserItemIsOk" ColumnName="WebUserItemIsOk" />
@@ -172,7 +181,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
       </DesignerInfoPropertySet>

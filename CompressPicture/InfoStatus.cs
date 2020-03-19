@@ -21,4 +21,31 @@ namespace CompressPicture
         public string Summary { get; set; }
         public int iStatus { get; set; }
     }
+
+    /// <summary>
+    /// 返回的上传信息
+    /// </summary>
+    public class CallbackUploadInfo
+    {
+        /// <summary>
+        /// 压缩图路径（包括视频封面图片路径）
+        /// </summary>
+        public string smallImgUrl { get; set; }
+        /// <summary>
+        /// 压缩图路径（包括视频封面图片路径）
+        /// </summary>
+        public string bigImgUrl { get; set; }
+        /// <summary>
+        /// 视频地址
+        /// </summary>
+        public string videoUrl { get; set; }
+        /// <summary>
+        /// 图片的MD5 前端传入的
+        /// </summary>
+        public string md5 { get; set; }
+        /// <summary>
+        /// 文件名称(图片，视频，文件)
+        /// </summary>
+        public string fileName { get; set; }
+    }
 }

@@ -62,8 +62,8 @@ namespace CompressPicture
             {
                 //排除
                 allData = context.Web_ItemLibrary
-                    .Where(o => o.IsDelete == 0)
-                   // .Take(50)
+                    .Where(o => o.IsDelete == 0 && !string.IsNullOrEmpty(o.ItemContentBefore))
+                    // .Take(50)
                     .OrderByDescending(o => o.CreateDate)
                     .ToList();
 

@@ -39,13 +39,20 @@
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Summary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslgj = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssldq = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslhs = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslgyxm = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGV)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnStart
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStart.Location = new System.Drawing.Point(987, 571);
+            this.btnStart.Location = new System.Drawing.Point(1007, 614);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(135, 47);
             this.btnStart.TabIndex = 6;
@@ -76,7 +83,7 @@
             this.dataGV.Name = "dataGV";
             this.dataGV.ReadOnly = true;
             this.dataGV.RowTemplate.Height = 23;
-            this.dataGV.Size = new System.Drawing.Size(1118, 564);
+            this.dataGV.Size = new System.Drawing.Size(1138, 607);
             this.dataGV.TabIndex = 5;
             // 
             // Id
@@ -133,17 +140,65 @@
             this.CreateDate.Name = "CreateDate";
             this.CreateDate.ReadOnly = true;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.tsslgj,
+            this.tssldq,
+            this.tsslhs,
+            this.tsslgyxm});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 664);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1146, 22);
+            this.statusStrip1.TabIndex = 13;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(68, 17);
+            this.toolStripStatusLabel1.Text = "图片数量：";
+            // 
+            // tsslgj
+            // 
+            this.tsslgj.Name = "tsslgj";
+            this.tsslgj.Size = new System.Drawing.Size(15, 17);
+            this.tsslgj.Text = "0";
+            // 
+            // tssldq
+            // 
+            this.tssldq.Name = "tssldq";
+            this.tssldq.Size = new System.Drawing.Size(75, 17);
+            this.tssldq.Text = "当前：0【】";
+            // 
+            // tsslhs
+            // 
+            this.tsslhs.Name = "tsslhs";
+            this.tsslhs.Size = new System.Drawing.Size(44, 17);
+            this.tsslhs.Text = "耗时：";
+            // 
+            // tsslgyxm
+            // 
+            this.tsslgyxm.Name = "tsslgyxm";
+            this.tsslgyxm.Size = new System.Drawing.Size(158, 17);
+            this.tsslgyxm.Text = "共计项目：{0}，有效项目{0}";
+            // 
             // ProPicUplToOSS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1126, 621);
+            this.ClientSize = new System.Drawing.Size(1146, 686);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.dataGV);
             this.Name = "ProPicUplToOSS";
             this.Text = "ProPicUplToOSS";
             ((System.ComponentModel.ISupportInitialize)(this.dataGV)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -160,5 +215,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn Summary;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateDate;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel tsslgj;
+        private System.Windows.Forms.ToolStripStatusLabel tssldq;
+        private System.Windows.Forms.ToolStripStatusLabel tsslhs;
+        private System.Windows.Forms.ToolStripStatusLabel tsslgyxm;
     }
 }
