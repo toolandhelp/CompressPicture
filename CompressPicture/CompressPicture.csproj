@@ -128,6 +128,12 @@
     </Compile>
     <Compile Include="DIYTool\SplashScreenManager.cs" />
     <Compile Include="Enums\Enums.cs" />
+    <Compile Include="BuildingUplOss.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuildingUplOss.Designer.cs">
+      <DependentUpon>BuildingUplOss.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProFileUplToOSS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -195,6 +201,9 @@
     <Compile Include="Web_ItemLibrary.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Web_UserBuildingCircle.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ContentImgMoving.resx">
       <DependentUpon>ContentImgMoving.cs</DependentUpon>
     </EmbeddedResource>
@@ -203,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DIYTool\SimpleLoading.resx">
       <DependentUpon>SimpleLoading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BuildingUplOss.resx">
+      <DependentUpon>BuildingUplOss.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProFileUplToOSS.resx">
       <DependentUpon>ProFileUplToOSS.cs</DependentUpon>

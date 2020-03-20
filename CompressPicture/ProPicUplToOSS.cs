@@ -81,22 +81,23 @@ namespace CompressPicture
             //  3a966d22-56ba-4d23-9ab5-0355523d1604  =  https://www.pic.jzbl.com/itemFiles/6760efac-e98b-4539-adf3-a842280803dd/2019-09-21/3a966d22-56ba-4d23-9ab5-0355523d1604/i/s/ca4e0b991569072379.jpg  去/s/ 得到原图
 
             //  9a599ffe-039c-4886-a28c-1936b5e4e5eb  =  https://www.pic.jzbl.com/itemFiles/8e5dc0f7-ed86-4d3c-89db-3a8593f6a2d7/2020-03-02/9a599ffe-039c-4886-a28c-1936b5e4e5eb/i/s/950b1f8a1583157228.jpg  去/s/ 加ori_ 得到原图
-            string[] tdata = { "8a8632fe-fcb0-4e56-b4b9-7bc965885994", "91fbcff0-304c-4fa6-b3d7-3f6662cd609a", "3a966d22-56ba-4d23-9ab5-0355523d1604"}; //"9a599ffe-039c-4886-a28c-1936b5e4e5eb" 
+            //string[] tdata = { "8a8632fe-fcb0-4e56-b4b9-7bc965885994", "91fbcff0-304c-4fa6-b3d7-3f6662cd609a", "3a966d22-56ba-4d23-9ab5-0355523d1604"}; //"9a599ffe-039c-4886-a28c-1936b5e4e5eb" 
+            string[] tdata = { "8a8632fe-fcb0-4e56-b4b9-7bc965885994","3a966d22-56ba-4d23-9ab5-0355523d1604" }; //"9a599ffe-039c-4886-a28c-1936b5e4e5eb" 
 
 
 
             using (var context = new DataModelEntities())
             {
                 //排除
-                allData = context.Web_ItemLibrary
-                    .Where(o => o.IsDelete == 0 && !string.IsNullOrEmpty(o.ItemContentBefore))
-                    // .Take(50)
-                    .OrderByDescending(o => o.CreateDate)
-                    .ToList();
                 //allData = context.Web_ItemLibrary
-                //    .Where(o => tdata.Contains(o.ItemId))
+                //    .Where(o => o.IsDelete == 0 && !string.IsNullOrEmpty(o.ItemContentBefore))
+                //    // .Take(50)
                 //    .OrderByDescending(o => o.CreateDate)
                 //    .ToList();
+                allData = context.Web_ItemLibrary
+                    .Where(o => tdata.Contains(o.ItemId))
+                    .OrderByDescending(o => o.CreateDate)
+                    .ToList();
 
                 if (allData.Any())
                 {
@@ -108,13 +109,13 @@ namespace CompressPicture
             this.tsslgyxm.Text = $"共计项目：{gjxm}，有效项目{0}";
             this.tsslgj.Text = 0.ToString();
 
-            //this.ContentImgUploadToOSS(allData, watch);
+            this.ContentImgUploadToOSS(allData, watch);
 
-            Task task = Task.Run(() =>
-            {
-                this.ContentImgUploadToOSS(allData, watch);
-                //this.ContentImgDataCopy(allData, watch);
-            });
+            //Task task = Task.Run(() =>
+            //{
+            //    this.ContentImgUploadToOSS(allData, watch);
+            //    //this.ContentImgDataCopy(allData, watch);
+            //});
 
             // this.btnStart.Enabled = task.IsCompleted;
 

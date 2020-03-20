@@ -80,5 +80,12 @@ namespace CompressPicture
             form.Text = sender.ToString();
             form.Show();
         }
+
+        private void tsbBuildingUplOss_Click(object sender, EventArgs e)
+        {
+            BuildingUplOss form = new BuildingUplOss();
+            form.Text = sender.ToString();
+            form.Show();
+        }
     }
 }

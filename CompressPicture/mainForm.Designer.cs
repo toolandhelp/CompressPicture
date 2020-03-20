@@ -30,13 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.label1 = new System.Windows.Forms.Label();
             this.tsb02 = new System.Windows.Forms.ToolStripButton();
             this.tsb0MovFile = new System.Windows.Forms.ToolStripButton();
             this.tsbMovContentImg = new System.Windows.Forms.ToolStripButton();
             this.tsbProTitlePicUplToOSS = new System.Windows.Forms.ToolStripButton();
             this.tsbProPicUplToOSS = new System.Windows.Forms.ToolStripButton();
             this.tsbProFileUplToOSS = new System.Windows.Forms.ToolStripButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tsbBuildingUplOss = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,21 +49,13 @@
             this.tsbMovContentImg,
             this.tsbProTitlePicUplToOSS,
             this.tsbProPicUplToOSS,
-            this.tsbProFileUplToOSS});
+            this.tsbProFileUplToOSS,
+            this.tsbBuildingUplOss});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(904, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1104, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(49, 65);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(275, 24);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "1，移动图片（连接数据库，分析数据，移动数据）\r\n2，压缩图片 加水印\r\n";
             // 
             // tsb02
             // 
@@ -118,11 +111,29 @@
             this.tsbProFileUplToOSS.Text = "处理【资源】文件上传到OSS";
             this.tsbProFileUplToOSS.Click += new System.EventHandler(this.tsbProFileUplToOSS_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(49, 65);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(275, 24);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "1，移动图片（连接数据库，分析数据，移动数据）\r\n2，压缩图片 加水印\r\n";
+            // 
+            // tsbBuildingUplOss
+            // 
+            this.tsbBuildingUplOss.Image = ((System.Drawing.Image)(resources.GetObject("tsbBuildingUplOss.Image")));
+            this.tsbBuildingUplOss.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbBuildingUplOss.Name = "tsbBuildingUplOss";
+            this.tsbBuildingUplOss.Size = new System.Drawing.Size(136, 22);
+            this.tsbBuildingUplOss.Text = "建筑圈内容迁移OSS";
+            this.tsbBuildingUplOss.Click += new System.EventHandler(this.tsbBuildingUplOss_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(904, 450);
+            this.ClientSize = new System.Drawing.Size(1104, 450);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -148,6 +159,7 @@
         private System.Windows.Forms.ToolStripButton tsbProPicUplToOSS;
         private System.Windows.Forms.ToolStripButton tsbProTitlePicUplToOSS;
         private System.Windows.Forms.ToolStripButton tsbProFileUplToOSS;
+        private System.Windows.Forms.ToolStripButton tsbBuildingUplOss;
     }
 }
 

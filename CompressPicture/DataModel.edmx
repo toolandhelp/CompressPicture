@@ -52,9 +52,35 @@
           <Property Name="IsAllowTribalCoins" Type="int" />
           <Property Name="ResourceObj" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Web_UserBuildingCircle">
+          <Key>
+            <PropertyRef Name="TalkId" />
+          </Key>
+          <Property Name="TalkId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TalkType" Type="int" />
+          <Property Name="TalkTitle" Type="varchar" MaxLength="1000" />
+          <Property Name="TalkContent" Type="varchar(max)" />
+          <Property Name="TalkView" Type="int" Nullable="false" />
+          <Property Name="IsDelete" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateUserId" Type="varchar" MaxLength="50" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="ModifyUserId" Type="varchar" MaxLength="50" />
+          <Property Name="IpAddress" Type="varchar" MaxLength="20" />
+          <Property Name="IpLocal" Type="varchar" MaxLength="50" />
+          <Property Name="FirstTitleImg" Type="nvarchar" MaxLength="250" />
+          <Property Name="DisplayPrivacyId" Type="nvarchar" MaxLength="50" />
+          <Property Name="ResourceObj" Type="varchar(max)" />
+          <Property Name="Duration" Type="varchar" MaxLength="50" />
+          <Property Name="Likes" Type="int" />
+          <Property Name="collections" Type="int" />
+          <Property Name="commentss" Type="int" />
+          <Property Name="ShareCount" Type="int" />
+        </EntityType>
         <EntityContainer Name="DataModelStoreContainer">
           <EntitySet Name="Data_TempCopy" EntityType="Self.Data_TempCopy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Web_ItemLibrary" EntityType="Self.Web_ItemLibrary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Web_UserBuildingCircle" EntityType="Self.Web_UserBuildingCircle" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -63,6 +89,7 @@
         <EntityContainer Name="DataModelEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Data_TempCopy" EntityType="DataModel.Data_TempCopy" />
           <EntitySet Name="Web_ItemLibrary" EntityType="DataModel.Web_ItemLibrary" />
+          <EntitySet Name="Web_UserBuildingCircle" EntityType="DataModel.Web_UserBuildingCircle" />
         </EntityContainer>
         <EntityType Name="Data_TempCopy">
           <Key>
@@ -110,6 +137,31 @@
           <Property Name="IsAllowIntegral" Type="Int32" />
           <Property Name="IsAllowTribalCoins" Type="Int32" />
           <Property Name="ResourceObj" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Web_UserBuildingCircle">
+          <Key>
+            <PropertyRef Name="TalkId" />
+          </Key>
+          <Property Name="TalkId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TalkType" Type="Int32" />
+          <Property Name="TalkTitle" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="TalkContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TalkView" Type="Int32" Nullable="false" />
+          <Property Name="IsDelete" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IpAddress" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IpLocal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstTitleImg" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayPrivacyId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResourceObj" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Duration" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Likes" Type="Int32" />
+          <Property Name="collections" Type="Int32" />
+          <Property Name="commentss" Type="Int32" />
+          <Property Name="ShareCount" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -163,6 +215,32 @@
                 <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
                 <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Web_UserBuildingCircle">
+            <EntityTypeMapping TypeName="DataModel.Web_UserBuildingCircle">
+              <MappingFragment StoreEntitySet="Web_UserBuildingCircle">
+                <ScalarProperty Name="ShareCount" ColumnName="ShareCount" />
+                <ScalarProperty Name="commentss" ColumnName="commentss" />
+                <ScalarProperty Name="collections" ColumnName="collections" />
+                <ScalarProperty Name="Likes" ColumnName="Likes" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="ResourceObj" ColumnName="ResourceObj" />
+                <ScalarProperty Name="DisplayPrivacyId" ColumnName="DisplayPrivacyId" />
+                <ScalarProperty Name="FirstTitleImg" ColumnName="FirstTitleImg" />
+                <ScalarProperty Name="IpLocal" ColumnName="IpLocal" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="TalkView" ColumnName="TalkView" />
+                <ScalarProperty Name="TalkContent" ColumnName="TalkContent" />
+                <ScalarProperty Name="TalkTitle" ColumnName="TalkTitle" />
+                <ScalarProperty Name="TalkType" ColumnName="TalkType" />
+                <ScalarProperty Name="TalkId" ColumnName="TalkId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

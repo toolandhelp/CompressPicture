@@ -27,5 +27,6 @@ namespace CompressPicture
     
         public virtual DbSet<Data_TempCopy> Data_TempCopy { get; set; }
         public virtual DbSet<Web_ItemLibrary> Web_ItemLibrary { get; set; }
+        public virtual DbSet<Web_UserBuildingCircle> Web_UserBuildingCircle { get; set; }
     }
 }
