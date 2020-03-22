@@ -134,6 +134,7 @@
     <Compile Include="BuildingUplOss.Designer.cs">
       <DependentUpon>BuildingUplOss.cs</DependentUpon>
     </Compile>
+    <Compile Include="helper\FFmpegHelper.cs" />
     <Compile Include="ProFileUplToOSS.cs">
       <SubType>Form</SubType>
     </Compile>

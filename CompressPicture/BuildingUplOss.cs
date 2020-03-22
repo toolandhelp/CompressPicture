@@ -66,9 +66,9 @@ namespace CompressPicture
         private void btnStart_Click(object sender, EventArgs e)
         {
             btnStart.Enabled = false;
-           
+
             Stopwatch watch = new Stopwatch();
-          
+
             watch.Start();
 
 
@@ -82,7 +82,7 @@ namespace CompressPicture
             //else
             //{
 
-            
+
 
             Task taskData = Task.Run(() =>
             {
@@ -113,7 +113,7 @@ namespace CompressPicture
                 MessageBox.Show("d=====(￣▽￣*)b");
             }
 
-         
+
         }
 
 
@@ -133,7 +133,7 @@ namespace CompressPicture
 
                 imgTextPro(imgTextData);
 
-                //还需要处理 https://www.pic1.jzbl.com/buildingcircle/d5b4fbaa-40a0-4145-a119-88af91c3bf8f/2020-03-20/i/1584692908904:
+                imgTextResourceObj(imgTextData);
 
             }
 
@@ -141,7 +141,7 @@ namespace CompressPicture
             var videoData = data.Where(o => o.TalkType.ToString().Equals("2")).OrderByDescending(o => o.CreateDate).ToList();
             if (videoData != null)
             {
-                videoPro(imgTextData);
+                //  videoPro(imgTextData);
             }
 
 
@@ -170,151 +170,25 @@ namespace CompressPicture
 
 
         InfoStatus infoStatus = new InfoStatus();
-        private void imgTextPro(List<Web_UserBuildingCircle> data)
+
+
+
+        private void imgTextResourceObj(List<Web_UserBuildingCircle> data)
         {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
+            //var domainData = data.Where(o => !string.IsNullOrEmpty(o.ResourceObj) && o.FirstTitleImg.Contains(_domainOne)).ToList();
 
-            //过来只有在服务器上的数据
-            data = data.Where(o => o.FirstTitleImg.Contains(_domain)).ToList();
-
-            string domainOSSFirstTitlet = string.Empty;
+            List<CallbackUploadInfo> callbackUploadInfos = new List<CallbackUploadInfo>();
 
             foreach (var item in data)
             {
+                CallbackUploadInfo callbackUploadInfo = new CallbackUploadInfo();
 
-                //处理封面图片数据
-              string  filePath = item.FirstTitleImg.ToLower()
-                                  .Replace(_domain, _D)
-                                  .Replace(_itemfiles.ToLower(), ItemImages.ToLower())
-                                  .Replace('/', '\\').ToLower();
+                string url = item.FirstTitleImg.Split('?').FirstOrDefault();
 
-                if (filePath.Contains(_nS))
-                {
-                    filePath = filePath.Replace(_nS, "\\");
+                callbackUploadInfo.smallImgUrl = url+ smallImg;
+                callbackUploadInfo.bigImgUrl = url + string.Format(bigImg, 90);
 
-                    //判断/s/里面的图片是否带 Ori_
-                    string tempFilePath = filePath.Replace(filePath.Split('\\').LastOrDefault(), "Ori_" + filePath.Split('\\').LastOrDefault());
-
-                    if (File.Exists(tempFilePath))
-                        filePath = tempFilePath;
-                }
-
-                //判断文件是否存在
-                if (File.Exists(filePath))
-                {
-                    var fileInfo = new System.IO.FileInfo(filePath);
-                    if (fileInfo.Length >= ImgLeng)
-                    {
-                        CompressImg.PicCompress(filePath);
-                    }
-
-                    // 移动操作
-                    string ossImgPath = filePath
-                      .Replace(ItemImages.ToLower(), _itemfiles.ToLower())
-                      .Remove(0, 3)
-                      .Replace('\\', '/').ToLower();
-
-                    //处理带Ori的数据
-                    if (ossImgPath.Contains("Ori_".ToLower()))
-                        ossImgPath = ossImgPath.Replace("Ori_".ToLower(), "");
-
-                    this.OssUpload(ossImgPath,filePath,ref infoStatus);
-
-                    domainOSSFirstTitlet = _domainOne + ossImgPath + firstTitletImg;
-
-                }
-
-
-                //处理 对象数据
-                var obj = item.ResourceObj.ToList<CallbackUploadInfo>();
-
-
-                List<CallbackUploadInfo> callbackUploadInfos = new List<CallbackUploadInfo>();
-
-                if (obj != null)
-                {
-                    foreach (var itemRes in obj)
-                    {
-                        string filePathRes = itemRes.smallImgUrl
-                                 .Replace(_domain, _D)
-                                 .Replace(_itemfiles.ToLower(), ItemImages.ToLower())
-                                 .Replace('/', '\\').ToLower();
-
-                        if (filePathRes.Contains(_nS))
-                        {
-                            filePathRes = filePathRes.Replace(_nS, "\\");
-
-                            //判断/s/里面的图片是否带 Ori_
-                            string tempFilePath = filePathRes.Replace(filePathRes.Split('\\').LastOrDefault(), "Ori_" + filePathRes.Split('\\').LastOrDefault());
-
-                            if (File.Exists(tempFilePath))
-                                filePathRes = tempFilePath;
-
-                            //判断文件是否存在
-                            if (File.Exists(filePathRes))
-                            {
-                                var fileInfo = new System.IO.FileInfo(filePathRes);
-                                if (fileInfo.Length >= ImgLeng)
-                                {
-                                    CompressImg.PicCompress(filePathRes);
-                                }
-
-                                // 移动操作
-                                string ossImgPath = filePathRes
-                                  .Replace(ItemImages.ToLower(), _itemfiles.ToLower())
-                                  .Remove(0, 3)
-                                  .Replace('\\', '/').ToLower();
-
-                                //处理带Ori的数据
-                                if (ossImgPath.Contains("Ori_".ToLower()))
-                                    ossImgPath = ossImgPath.Replace("Ori_".ToLower(), "");
-
-                                this.OssUpload(ossImgPath, filePathRes, ref infoStatus);
-
-                                CallbackUploadInfo callback = new CallbackUploadInfo();
-
-                                string ossPro = string.Empty;
-                                if (fileInfo.Length >= 500000)
-                                {
-                                    ossPro = string.Format(bigImg, 20);
-                                }
-                                else if (fileInfo.Length >= 400000)
-                                {
-                                    ossPro = string.Format(bigImg, 30);
-                                }
-                                else if (fileInfo.Length >= 300000)
-                                {
-                                    ossPro = string.Format(bigImg, 40);
-                                }
-                                else if (fileInfo.Length >= 200000)
-                                {
-                                    ossPro = string.Format(bigImg, 50);
-                                }
-                                else if (fileInfo.Length >= 100000)
-                                {
-                                    ossPro = string.Format(bigImg, 90);
-                                }
-                                else
-                                {
-                                    ossPro = string.Format(bigImg, 100);
-                                }
-
-                                string ossUrl = _domainOne + ossImgPath + ossPro;
-
-                                callback.smallImgUrl = _domainOne + ossImgPath + "?x-oss-process=image/quality,q_90/resize,w_400";
-                                callback.bigImgUrl = ossUrl;
-                                callback.fileName = itemRes.fileName;
-
-                                callbackUploadInfos.Add(callback);
-
-                            }
-
-                        }
-                    }
-                }
-
-
+                callbackUploadInfos.Add(callbackUploadInfo);
 
                 // 保存数据
                 try
@@ -324,11 +198,9 @@ namespace CompressPicture
                         var itemData = context.Web_UserBuildingCircle.FirstOrDefault(o => o.TalkId.Equals(item.TalkId));
                         if (itemData != null)
                         {
-                            itemData.FirstTitleImg = domainOSSFirstTitlet;
                             itemData.ResourceObj = callbackUploadInfos.Count == 0 ? null : callbackUploadInfos.ToJson();
 
-                            itemData.TalkContent = string.IsNullOrEmpty(itemData.TalkContent.Trim()) ? itemData.TalkTitle : itemData.TalkContent;
-                            itemData.TalkTitle = string.IsNullOrEmpty(itemData.TalkTitle) ? null : "NULL";
+                            itemData.TalkTitle = itemData.TalkTitle.Equals("NULL") ? null : itemData.TalkTitle;
 
                             context.SaveChanges();
                         }
@@ -340,58 +212,28 @@ namespace CompressPicture
                     Console.WriteLine("Failed with error info: {0}", ex.Message);
                     MessageBox.Show(string.Format("保存数据出错！{0}", ex.Message));
                 }
-
-
-
-
-
-
-
-
-
-                if (this.InvokeRequired)
-                {
-                    this.Invoke(new DelegateWriteMessage(_comm.WriteMessage), new object[] { 2, item.TalkId, filePath, infoStatus.OldPath, infoStatus.iStatus, infoStatus.Summary });
-                    this.Invoke(new DelegateCurrent(_comm.Current), new object[] { 1, item.TalkId });
-                    this.Invoke(new DelegateTimeCost(_comm.TimeCost), new object[] { watch.Elapsed.ToString() });
-                }
-                else
-                {
-                    _comm.WriteMessage(2, item.TalkId, filePath, infoStatus.OldPath, infoStatus.iStatus, infoStatus.Summary);
-                    _comm.Current(1, item.TalkId);
-                    _comm.TimeCost(watch.Elapsed.ToString());
-                }
-
-
-
-
-
             }
-
-            
-
-
         }
 
-
-        private void videoPro(List<Web_UserBuildingCircle> data)
+        private void imgTextPro(List<Web_UserBuildingCircle> data)
         {
             Stopwatch watch = new Stopwatch();
             watch.Start();
 
             //过来只有在服务器上的数据
-            data = data.Where(o => o.FirstTitleImg.Contains(_domain)).ToList();
+            var domainData = data.Where(o => !string.IsNullOrEmpty(o.FirstTitleImg) && o.FirstTitleImg.Contains(_domain)).ToList();
 
             string domainOSSFirstTitlet = string.Empty;
 
-            foreach (var item in data)
+            foreach (var item in domainData)
             {
+                infoStatus.Summary = "处理再" + _domain + "域名数据";
 
                 //处理封面图片数据
                 string filePath = item.FirstTitleImg.ToLower()
-                                    .Replace(_domain, _D)
-                                    .Replace(_itemfiles.ToLower(), ItemImages.ToLower())
-                                    .Replace('/', '\\').ToLower();
+                                  .Replace(_domain, _D)
+                                  .Replace(_itemfiles.ToLower(), ItemImages.ToLower())
+                                  .Replace('/', '\\').ToLower();
 
                 if (filePath.Contains(_nS))
                 {
@@ -571,17 +413,438 @@ namespace CompressPicture
 
 
             }
+
+
+
+            // 修改https://www.pic1.jzbl.com 的后缀
+            var domainOneData = data.Where(o => !string.IsNullOrEmpty(o.FirstTitleImg) && o.FirstTitleImg.Contains(_domainOne)).ToList();
+            // var domainOneData = data.Where(o =>o.TalkId.Equals("615a6f97-4fda-439a-b5c4-3b0e708bce13")).ToList();
+
+
+            foreach (var itemOne in domainOneData)
+            {
+
+                infoStatus.Summary = "处理再" + _domainOne + "域名数据";
+
+                List<CallbackUploadInfo> callbackUploadInfos = new List<CallbackUploadInfo>();
+
+                //处理oss图片有后缀的，只压缩图片就行
+                if (itemOne.FirstTitleImg.Split('.').LastOrDefault().ToLower().Equals("jpg"))
+                {
+                    domainOSSFirstTitlet = itemOne.FirstTitleImg + firstTitletImg;
+
+                    //处理 对象数据
+                    var obj = itemOne.ResourceObj.ToList<CallbackUploadInfo>();
+
+
+                    if (obj != null)
+                    {
+                        foreach (var itemRes in obj)
+                        {
+
+                            CallbackUploadInfo callback = new CallbackUploadInfo();
+
+                            string ossPro = string.Empty;
+
+                            ossPro = string.Format(bigImg, 90);
+
+                            string ossUrl = itemRes.smallImgUrl + ossPro;
+
+                            callback.smallImgUrl = itemRes.smallImgUrl + "?x-oss-process=image/quality,q_90/resize,w_400";
+                            callback.bigImgUrl = ossUrl;
+                            callback.fileName = itemRes.fileName;
+
+                            callbackUploadInfos.Add(callback);
+
+                        }
+                    }
+
+                    infoStatus.Summary = "处理oss图片有后缀的，只压缩图片就行";
+
+
+                }
+                else
+                {
+                    string sourcekey = itemOne.FirstTitleImg.Replace(_domainOne, "");
+                    string targetkey = sourcekey + ".jpg";
+
+
+                    CopyObject(bucketName, sourcekey, bucketName, targetkey);
+
+                    domainOSSFirstTitlet = _domainOne + targetkey;
+
+                    //处理 对象数据
+                    var obj = itemOne.ResourceObj.ToList<CallbackUploadInfo>();
+
+                    if (obj != null)
+                    {
+                        foreach (var itemRes in obj)
+                        {
+
+                            CallbackUploadInfo callback = new CallbackUploadInfo();
+
+
+                            string sourcekeylist = itemRes.smallImgUrl.Replace(_domainOne, "");
+                            string targetkeylist = sourcekeylist + ".jpg";
+
+                            CopyObject(bucketName, sourcekeylist, bucketName, targetkeylist);
+
+
+                            string ossPro = string.Empty;
+
+                            ossPro = string.Format(bigImg, 90);
+
+                            string ossUrl = itemRes.smallImgUrl + ossPro;
+
+                            callback.smallImgUrl = itemRes.smallImgUrl + "?x-oss-process=image/quality,q_90/resize,w_400";
+                            callback.bigImgUrl = ossUrl;
+                            callback.fileName = itemRes.fileName;
+
+                            callbackUploadInfos.Add(callback);
+
+                        }
+                    }
+
+
+                    infoStatus.Summary = "处理oss图片没有后缀，先拷贝，再删除原图";
+
+
+                }
+
+
+                // 保存数据
+                try
+                {
+                    using (var context = new DataModelEntities())
+                    {
+                        var itemData = context.Web_UserBuildingCircle.FirstOrDefault(o => o.TalkId.Equals(itemOne.TalkId));
+                        if (itemData != null)
+                        {
+                            itemData.FirstTitleImg = domainOSSFirstTitlet;
+                            itemData.ResourceObj = callbackUploadInfos.Count == 0 ? null : callbackUploadInfos.ToJson();
+
+                            itemData.TalkContent = string.IsNullOrEmpty(itemData.TalkContent.Trim()) ? itemData.TalkTitle : itemData.TalkContent;
+                            itemData.TalkTitle = string.IsNullOrEmpty(itemData.TalkTitle) ? null : "NULL";
+
+                            context.SaveChanges();
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Failed with error info: {0}", ex.Message);
+                    MessageBox.Show(string.Format("保存数据出错！{0}", ex.Message));
+                }
+
+
+
+
+
+
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new DelegateWriteMessage(_comm.WriteMessage), new object[] { 2, itemOne.TalkId, "---------", infoStatus.OldPath, infoStatus.iStatus, infoStatus.Summary });
+                    this.Invoke(new DelegateCurrent(_comm.Current), new object[] { 1, itemOne.TalkId });
+                    this.Invoke(new DelegateTimeCost(_comm.TimeCost), new object[] { watch.Elapsed.ToString() });
+                }
+                else
+                {
+                    _comm.WriteMessage(2, itemOne.TalkId, "---------", infoStatus.OldPath, infoStatus.iStatus, infoStatus.Summary);
+                    _comm.Current(1, itemOne.TalkId);
+                    _comm.TimeCost(watch.Elapsed.ToString());
+                }
+
+
+
+
+
+            }
+
+
+
+        }
+
+
+        private void videoPro(List<Web_UserBuildingCircle> data)
+        {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+
+            //过来只有在服务器上的数据https://www.pic.jzbl.com
+            var domainData = data.Where(o => o.FirstTitleImg.Contains(_domain)).ToList();
+
+            string domainOSSFirstTitlet = string.Empty;
+
+            foreach (var item in domainData)
+            {
+
+                //处理封面图片数据
+                string filePath = item.FirstTitleImg.ToLower()
+                                    .Replace(_domain, _D)
+                                    .Replace(_itemfiles.ToLower(), ItemImages.ToLower())
+                                    .Replace('/', '\\').ToLower();
+
+                if (filePath.Contains(_nS))
+                {
+                    filePath = filePath.Replace(_nS, "\\");
+
+                    //判断/s/里面的图片是否带 Ori_
+                    string tempFilePath = filePath.Replace(filePath.Split('\\').LastOrDefault(), "Ori_" + filePath.Split('\\').LastOrDefault());
+
+                    if (File.Exists(tempFilePath))
+                        filePath = tempFilePath;
+                }
+
+                //判断文件是否存在
+                if (File.Exists(filePath))
+                {
+                    var fileInfo = new System.IO.FileInfo(filePath);
+                    if (fileInfo.Length >= ImgLeng)
+                    {
+                        CompressImg.PicCompress(filePath);
+                    }
+
+                    // 移动操作
+                    string ossImgPath = filePath
+                      .Replace(ItemImages.ToLower(), _itemfiles.ToLower())
+                      .Remove(0, 3)
+                      .Replace('\\', '/').ToLower();
+
+                    //处理带Ori的数据
+                    if (ossImgPath.Contains("Ori_".ToLower()))
+                        ossImgPath = ossImgPath.Replace("Ori_".ToLower(), "");
+
+                    this.OssUpload(ossImgPath, filePath, ref infoStatus);
+
+                    domainOSSFirstTitlet = _domainOne + ossImgPath + firstTitletImg;
+
+                }
+
+
+                //处理 对象数据
+                var obj = item.ResourceObj.ToList<CallbackUploadInfo>();
+
+
+                List<CallbackUploadInfo> callbackUploadInfos = new List<CallbackUploadInfo>();
+
+                if (obj != null)
+                {
+                    foreach (var itemRes in obj)
+                    {
+                        string filePathRes = itemRes.smallImgUrl
+                                 .Replace(_domain, _D)
+                                 .Replace(_itemfiles.ToLower(), ItemImages.ToLower())
+                                 .Replace('/', '\\').ToLower();
+
+                        if (filePathRes.Contains(_nS))
+                        {
+                            filePathRes = filePathRes.Replace(_nS, "\\");
+
+                            //判断/s/里面的图片是否带 Ori_
+                            string tempFilePath = filePathRes.Replace(filePathRes.Split('\\').LastOrDefault(), "Ori_" + filePathRes.Split('\\').LastOrDefault());
+
+                            if (File.Exists(tempFilePath))
+                                filePathRes = tempFilePath;
+
+                            //判断文件是否存在
+                            if (File.Exists(filePathRes))
+                            {
+                                var fileInfo = new System.IO.FileInfo(filePathRes);
+                                if (fileInfo.Length >= ImgLeng)
+                                {
+                                    CompressImg.PicCompress(filePathRes);
+                                }
+
+                                // 移动操作
+                                string ossImgPath = filePathRes
+                                  .Replace(ItemImages.ToLower(), _itemfiles.ToLower())
+                                  .Remove(0, 3)
+                                  .Replace('\\', '/').ToLower();
+
+                                //处理带Ori的数据
+                                if (ossImgPath.Contains("Ori_".ToLower()))
+                                    ossImgPath = ossImgPath.Replace("Ori_".ToLower(), "");
+
+                                this.OssUpload(ossImgPath, filePathRes, ref infoStatus);
+
+                                CallbackUploadInfo callback = new CallbackUploadInfo();
+
+                                string ossPro = string.Empty;
+                                if (fileInfo.Length >= 500000)
+                                {
+                                    ossPro = string.Format(bigImg, 20);
+                                }
+                                else if (fileInfo.Length >= 400000)
+                                {
+                                    ossPro = string.Format(bigImg, 30);
+                                }
+                                else if (fileInfo.Length >= 300000)
+                                {
+                                    ossPro = string.Format(bigImg, 40);
+                                }
+                                else if (fileInfo.Length >= 200000)
+                                {
+                                    ossPro = string.Format(bigImg, 50);
+                                }
+                                else if (fileInfo.Length >= 100000)
+                                {
+                                    ossPro = string.Format(bigImg, 90);
+                                }
+                                else
+                                {
+                                    ossPro = string.Format(bigImg, 100);
+                                }
+
+                                string ossUrl = _domainOne + ossImgPath + ossPro;
+
+                                callback.smallImgUrl = _domainOne + ossImgPath + smallImg;
+                                callback.bigImgUrl = ossUrl;
+                                callback.fileName = itemRes.fileName;
+
+                                callbackUploadInfos.Add(callback);
+
+                            }
+
+                        }
+                    }
+                }
+
+
+
+                // 保存数据
+                try
+                {
+                    using (var context = new DataModelEntities())
+                    {
+                        var itemData = context.Web_UserBuildingCircle.FirstOrDefault(o => o.TalkId.Equals(item.TalkId));
+                        if (itemData != null)
+                        {
+                            itemData.FirstTitleImg = domainOSSFirstTitlet;
+                            itemData.ResourceObj = callbackUploadInfos.Count == 0 ? null : callbackUploadInfos.ToJson();
+
+                            itemData.TalkContent = string.IsNullOrEmpty(itemData.TalkContent.Trim()) ? itemData.TalkTitle : itemData.TalkContent;
+                            itemData.TalkTitle = string.IsNullOrEmpty(itemData.TalkTitle) ? null : "NULL";
+
+                            context.SaveChanges();
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Failed with error info: {0}", ex.Message);
+                    MessageBox.Show(string.Format("保存数据出错！{0}", ex.Message));
+                }
+
+
+
+
+
+
+
+
+
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new DelegateWriteMessage(_comm.WriteMessage), new object[] { 2, item.TalkId, filePath, infoStatus.OldPath, infoStatus.iStatus, infoStatus.Summary });
+                    this.Invoke(new DelegateCurrent(_comm.Current), new object[] { 1, item.TalkId });
+                    this.Invoke(new DelegateTimeCost(_comm.TimeCost), new object[] { watch.Elapsed.ToString() });
+                }
+                else
+                {
+                    _comm.WriteMessage(2, item.TalkId, filePath, infoStatus.OldPath, infoStatus.iStatus, infoStatus.Summary);
+                    _comm.Current(1, item.TalkId);
+                    _comm.TimeCost(watch.Elapsed.ToString());
+                }
+
+
+
+
+
+            }
+
+
+
+
         }
 
 
 
+        /// <summary>
+        /// 拷贝
+        /// </summary>
+        /// <param name="sourceBucket"></param>
+        /// <param name="sourceKey"></param>
+        /// <param name="targetBucket"></param>
+        /// <param name="targetKey"></param>
+        public static void CopyObject(string sourceBucket, string sourceKey, string targetBucket, string targetKey)
+        {
+            try
+            {
+                //var metadata = new ObjectMetadata();
+                //metadata.AddHeader("mk1", "mv1");
+                //metadata.AddHeader("mk2", "mv2");
+                var req = new CopyObjectRequest(sourceBucket, sourceKey, targetBucket, targetKey);
+                //{
+                //    NewObjectMetadata = metadata
+                //};
+                client.CopyObject(req);
+
+                Console.WriteLine("Copy object succeeded");
+
+                DeleteObject(sourceBucket, sourceKey);
+
+            }
+            catch (OssException ex)
+            {
+                Console.WriteLine("Failed with error code: {0}; Error info: {1}. \nRequestID:{2}\tHostID:{3}",
+                    ex.ErrorCode, ex.Message, ex.RequestId, ex.HostId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed with error info: {0}", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="bucketName"></param>
+        /// <param name="sourcekey"></param>
+        public static void DeleteObject(string bucketName, string sourcekey)
+        {
+            try
+            {
+                string key = null;
+                var listResult = client.ListObjects(bucketName);
+                foreach (var summary in listResult.ObjectSummaries)
+                {
+                    key = summary.Key;
+                    break;
+                }
+
+                client.DeleteObject(bucketName, sourcekey);
+
+                Console.WriteLine("Delete object succeeded");
+            }
+            //catch (OssException ex)
+            //{
+            //    Console.WriteLine("Failed with error code: {0}; Error info: {1}. \nRequestID:{2}\tHostID:{3}",
+            //        ex.ErrorCode, ex.Message, ex.RequestId, ex.HostId);
+            //}
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed with error info: {0}", ex.Message);
+            }
+        }
 
         /// <summary>
         /// 上传到OSS
         /// </summary>
         /// <param name="ossFilePath">Oss上的图片地址： TempTest/1.jpg</param>
         /// <param name="filePath">D:\test\1.jpg</param>
-        private void OssUpload(string ossFilePath, string filePath,  ref InfoStatus infoStatus)
+        private void OssUpload(string ossFilePath, string filePath, ref InfoStatus infoStatus)
         {
             //上传到OSS
             try
@@ -613,8 +876,8 @@ namespace CompressPicture
         /// </summary>
         private void TitleImgCopy(List<Web_ItemLibrary> data, Stopwatch watch)
         {
-    
-            Comm comm = new Comm(this.dataGV,this.tssldq,this.tsslhs);
+
+            Comm comm = new Comm(this.dataGV, this.tssldq, this.tsslhs);
 
             string summary = string.Empty;
             string oldPath = string.Empty;
@@ -779,7 +1042,7 @@ namespace CompressPicture
 
 
 
-      
+
 
         /// <summary>
         ///  显示 load 返回数据
@@ -788,7 +1051,7 @@ namespace CompressPicture
 
         private void LoadData(ref List<Web_UserBuildingCircle> allData)
         {
-           // List<Web_ItemLibrary> allData = new List<Web_ItemLibrary>();
+            // List<Web_ItemLibrary> allData = new List<Web_ItemLibrary>();
 
             SimpleLoading loadingfrm = new SimpleLoading(this);
             //将Loaing窗口，注入到 SplashScreenManager 来管理
@@ -807,7 +1070,7 @@ namespace CompressPicture
                 }
             }
 
-         //   return allData;
+            //   return allData;
         }
 
         /// <summary>
@@ -839,7 +1102,7 @@ namespace CompressPicture
             //   return allData;
         }
 
-     
-     
+
+
     }
 }
